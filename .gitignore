@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.sql linguist-language=py
 
 # C extensions
 *.so
