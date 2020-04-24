@@ -1,0 +1,54 @@
+body {
+	background-image: url(https://api.ixiaowai.cn/gqapi/gqapi.php);
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment:fixed;
+	text-align:center;
+	}
+a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+#base {
+	margin: 0 auto;
+	height: 100%;
+	width: 100%;
+	}
+#title {
+	color: white;
+	padding: 180px 0 0 0;
+}
+#search {
+	padding: 20px 0 0 0;
+}
+#search .text {
+	margin-left: 50px;
+	width: 320px;
+	height: 30px;
+}
+#search .button {
+	margin-left: 40px;
+	width: 80px;
+	height: 35px;
+	border-radius: 10px;
+	border: 0px;
+	}
+#search .button:hover {
+	color: #666666;
+	}
+#search .button:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+#footer {
+	position: absolute;
+	left: 50%;
+	bottom: 100px;
+	color: #FFFFFF;
+	transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+}
+#footer p a:hover{
+	color: black;
+}

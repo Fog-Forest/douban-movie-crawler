@@ -1,0 +1,45 @@
+a {
+	text-decoration:none;
+}
+.video {
+	width: 40%;
+	height: 200px;
+	padding: 50px 0 50px 0;
+}
+.video .img {
+	height: 100%;
+	width: 150px;
+	float: left;
+}
+.info {
+	position: absolute;
+	width: inherit;
+	float: left;
+	margin-left: 180px;
+}
+.info h3 {
+	margin: 0 0 0 0;
+}
+.info h3 a:hover {
+	color: red;
+}
+.info h3 span{
+	font-size: 10px;
+	color: gray;
+}
+.info .actor {
+	width: inherit;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+.info .description p {
+	width: inherit;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
