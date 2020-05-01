@@ -1,54 +1,102 @@
-body {
-	background-image: url(https://api.ixiaowai.cn/gqapi/gqapi.php);
-	background-repeat:no-repeat;
-	background-size:cover;
-	background-attachment:fixed;
-	text-align:center;
-	}
+* {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style: none;
+}
+
 a {
 	text-decoration: none;
 	color: #FFFFFF;
 }
-#base {
-	margin: 0 auto;
-	height: 100%;
+
+body {
+	background-image: url(http://api.ixiaowai.cn/gqapi/gqapi.php);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center top;
+	font-family: "'Microsoft YaHei', arial, helvetica, sans-serif";
+}
+
+/* 导航栏 */
+.nav {
 	width: 100%;
-	}
-#title {
-	color: white;
-	padding: 180px 0 0 0;
+	height: 60px;
+	text-align: center;
 }
-#search {
-	padding: 20px 0 0 0;
+
+.nav:hover {
+	background-color: rgba(255, 255, 255, 0.6);
 }
-#search .text {
-	margin-left: 50px;
+
+.nav ul {
+	display: inline-block;
+}
+
+.nav ul li {
+	float: left;
+}
+
+.nav ul li a {
+	color: #000000;
+	line-height: 60px;
+	padding: 0 25px;
+}
+
+.nav ul li a:hover {
+	color: #ff0000;
+}
+
+/* 搜索框 */
+.search {
+	width: 100%;
+	margin-top: 200px;
+	text-align: center;
+}
+
+.search h1 {
+	margin: 100px 0;
+	color: #fff;
+}
+
+.search form {
+	margin: 0 auto;
+}
+
+.search .text {
 	width: 320px;
 	height: 30px;
 }
-#search .button {
-	margin-left: 40px;
+
+.search .button {
 	width: 80px;
-	height: 35px;
-	border-radius: 10px;
+	height: 32px;
+	margin-left: 10px;
 	border: 0px;
-	}
-#search .button:hover {
-	color: #666666;
-	}
-#search .button:active {
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
+	border-radius: 10px;
 }
-#footer {
-	position: absolute;
-	left: 50%;
-	bottom: 100px;
-	color: #FFFFFF;
-	transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%,-50%);
-	-webkit-transform: translate(-50%,-50%);
+
+.search .button:hover {
+	background-color: #ff5500;
 }
-#footer p a:hover{
-	color: black;
+
+.search .button:active {
+	transform: translateY(3px);
+}
+
+/* 底部 */
+.footer {
+	position: fixed;
+	bottom: 20px;
+	width: 100%;
+}
+
+.footer p {
+	color: #fff;
+}
+
+.footer p a:hover {
+	color: #ffaa00;
 }

@@ -6,17 +6,24 @@
 		<link rel="stylesheet" href="css/index.css">
 	</head>
 	<body>
-		<div id="base">
-			<div id="title">
-				<h1>电影搜索</h1>
-			</div>
-			<div id="search">
-				<form action="/search.php">
-					<input class="text" type="text" placeholder="请输入搜索的电影名称..." name="words" value="" />
-					<input id="animate" class="button fadeInLeft" type="submit" value="搜索">
-				</form>
-			</div>
-			<div id="footer"><p>Author:<a href="https://github.com/Fog-Forest/">老蘑菇</a></p></div>
+		<div class="nav">
+			<ul>
+				<li><a href="/">首页</a></li>
+				<li><a href="#">电影</a></li>
+				<li><a href="#">电视剧</a></li>
+				<li><a href="#">综艺</a></li>
+				<li><a href="#">动漫</a></li>
+			</ul>
+		</div>
+		<div class="search">
+			<h1>电影搜索</h1>
+			<form action="/search.php" method="get" name="search">
+				<input class="text" type="text" placeholder="请输入搜索的电影关键词..." name="words" value="" />
+				<input id="animate" class="button fadeInLeft" type="submit" value="搜索">
+			</form>
+		</div>
+		<div class="footer">
+			<p>Author：<a href="https://github.com/Fog-Forest/">蘑菇君</a></p>
 		</div>
 	</body>
 </html>

@@ -5,7 +5,7 @@
 		<link rel="stylesheet" href="css/search.css"/>
 		<meta name="referrer" content="never">
 	</head>
-
+	<body>
 <?php
 require_once("class/search_class.php");
 $info = new video_info();
@@ -26,7 +26,7 @@ $result = mysqli_query($con, $sql); //使用mysqli_query函数执行sql
 if($row = mysqli_fetch_all($result)){
 	echo "<p>共搜索到". count($row) ."个与【<font color=\"red\">". $keywords ."</font>】有关的内容</p>";
 	for($i=0; $i<count($row); $i++){
-		echo "<div class=\"video\"><a href=\"http://www.okzy.co/index.php?m=vod-search&wd=". $keywords ."\" title=\"". $row[$i][2] ."\" ><div class=\"img\" style=\"background-image: url(https://images.weserv.nl/?url=". $row[$i][4] ."); background-size:100%;\"></div></a><div class=\"info\"><h3 class=\"title\"><a href=\"http://www.okzy.co/index.php?m=vod-search&wd=". $keywords ."\">". $row[$i][2] ."</a><span> ". $row[$i][5] ."</span></h3><p></p><span class=\"actor\">". $info->actor($row[$i][9]) ."</span><span class=\"description\"><p>". $row[$i][6] ."</p><span><span class=\"more\"><a href=\"https://movie.douban.com/subject/". $row[$i][1] ."\">查看详情</a></span></div></div>";
+		echo "<div class=\"video\"><a href=\"http://www.okzy.co/index.php?m=vod-search&wd=". $keywords ."\" title=\"". $row[$i][2] ."\" ><div class=\"img\" style=\"background-image: url(https://images.weserv.nl/?url=". $row[$i][4] .");\"></div></a><div class=\"info\"><h3><a href=\"http://www.okzy.co/index.php?m=vod-search&wd=". $keywords ."\">". $row[$i][2] ."</a><span class=\"data\"> ". $row[$i][5] ."</span></h3><span class=\"actor\">". $info->actor($row[$i][9]) ."</span><span class=\"description\"><p>". $row[$i][6] ."</p><span><span class=\"more\"><a href=\"https://movie.douban.com/subject/". $row[$i][1] ."\">查看详情</a></span></div></div>";
 	}
 } else {
 	echo "<p>没有找到相关结果</p>";
@@ -37,4 +37,5 @@ mysqli_free_result($result);
 //断开服务器连接
 mysqli_close($con);
 ?>
+</body>
 </html>
