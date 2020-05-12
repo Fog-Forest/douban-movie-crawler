@@ -29,7 +29,7 @@ class MyThread(threading.Thread):
 
 
 # 使用正则获取代理IP函数(API提取形式):API提取链接、备注名称
-def ip_json(link, text):
+def ip_api(link, text):
     global proxy_ip
     ip_num = 0
     try:
@@ -118,11 +118,11 @@ def ip_html3(link, text, page, speed):
 # 获取普通代理IP函数
 def get_ip():
     # 定义一个获取IP的线程池，如果你有其他接口可以往里加
-    threads_ip = [MyThread(ip_json, args=('http://www.66ip.cn/mo.php?sxb=&tqsl=7000&port=&export=&ktip=&sxa=&submit=%CC%E1++%C8%A1&textarea=', '66免费代理')),
+    threads_ip = [MyThread(ip_api, args=('http://www.66ip.cn/mo.php?sxb=&tqsl=7000&port=&export=&ktip=&sxa=&submit=%CC%E1++%C8%A1&textarea=', '66免费代理')),
                   MyThread(ip_html3, args=('https://www.xicidaili.com/nt/', '西刺代理', 5, 6)),
                   MyThread(ip_html2, args=('https://www.kuaidaili.com/free/intr/', '快代理', 20, 2)),
-                  MyThread(ip_html2, args=('http://www.ip3366.net/free/?stype=2&page=', '云代理', 7, 0)),
-                  MyThread(ip_json, args=('http://www.89ip.cn/tqdl.html?api=1&num=3000&port=&address=&isp=', '89免费代理（不知道是不是高匿）')),
+                  MyThread(ip_html2, args=('http://www.ip3366.net/free/?stype=2&page=', '云代理', 7, 1)),
+                  MyThread(ip_api, args=('http://www.89ip.cn/tqdl.html?api=1&num=3000&port=&address=&isp=', '89免费代理（不知道是不是高匿）')),
                   MyThread(ip_html1, args=('http://www.nimadaili.com/putong/', '泥马代理', 100, 1)),
                   MyThread(ip_html1, args=('http://www.xiladaili.com/putong/', '西拉代理', 100, 1))]
     for b in threads_ip:
@@ -135,14 +135,14 @@ def get_ip():
 # 获取匿名代理IP函数
 def get_anonymous_ip():
     # 定义一个获取IP的线程池，如果你有其他接口可以往里加
-    threads_ip = [MyThread(ip_json, args=('http://www.66ip.cn/nmtq.php?getnum=3000&isp=0&anonymoustype=3&start=&ports=&export=&ipaddress=&area=1&proxytype=2&api=66ip', '66免费代理')),
+    threads_ip = [MyThread(ip_api, args=('http://www.66ip.cn/nmtq.php?getnum=3000&isp=0&anonymoustype=3&start=&ports=&export=&ipaddress=&area=1&proxytype=2&api=66ip', '66免费代理')),
                   MyThread(ip_html3, args=('https://www.xicidaili.com/nn/', '西刺代理', 5, 6)),
                   MyThread(ip_html2, args=('https://www.kuaidaili.com/free/inha/', '快代理', 20, 2)),
-                  MyThread(ip_html2, args=('http://www.ip3366.net/free/?stype=1&page=', '云代理', 7, 0)),
-                  MyThread(ip_json, args=('http://www.89ip.cn/tqdl.html?api=1&num=3000&port=&address=&isp=', '89免费代理（不知道是不是高匿）')),
+                  MyThread(ip_html2, args=('http://www.ip3366.net/free/?stype=1&page=', '云代理', 7, 1)),
+                  MyThread(ip_api, args=('http://www.89ip.cn/tqdl.html?api=1&num=3000&port=&address=&isp=', '89免费代理（不知道是不是高匿）')),
                   MyThread(ip_html1, args=('http://www.nimadaili.com/gaoni/', '泥马代理', 100, 1)),
                   MyThread(ip_html1, args=('http://www.xiladaili.com/gaoni/', '西拉代理', 100, 1)),
-                  MyThread(ip_html2, args=('https://www.7yip.cn/free/?action=china&page=', '齐云代理', 90, 0)),
+                  MyThread(ip_html2, args=('https://www.7yip.cn/free/?action=china&page=', '齐云代理', 90, 1)),
                   MyThread(ip_html2, args=('https://ip.jiangxianli.com/?page=', '高可用全球免费代理库', 8, 0))]
     for b in threads_ip:
         b.start()
@@ -152,13 +152,13 @@ def get_anonymous_ip():
 
 
 # 验证输入正确函数
-def check_input(fsite, fword, fcode):
-    check = requests.get(fsite, headers=headers, timeout=8)
-    if fcode == "2":
+def check_input(site, word, code):
+    check = requests.get(site, headers=headers, timeout=10)
+    if code == "2":
         check.encoding = 'gbk'
     else:
         check.encoding = 'utf-8'
-    if fword in check.text:  # 判断关键字符串是否在网站源码中
+    if word in check.text:  # 判断关键字符串是否在网站源码中
         print("\n验证成功，验证网址和关键字符串可用，开始代理IP验证！")
         return True
     else:
@@ -167,25 +167,22 @@ def check_input(fsite, fword, fcode):
 
 
 # 验证代理函数
-def test_ip(lists, site, word, code):
+def check_ip(ip, site, word, code):
     global proxy_ok_ip
-    for ip in lists:
-        proxy_host = ip
-        try:
-            proxy_temp = {"http": proxy_host, "https": proxy_host}
-            res = requests.get(site, headers=headers, proxies=proxy_temp, timeout=5)  # 验证超时时间，默认5秒
-            if code == "2":
-                res.encoding = 'gbk'
-            else:
-                res.encoding = 'utf-8'
-            if word in res.text:  # 判断关键词是否在网站源码中
-                print(res, proxy_host + "  is OK")
-                proxy_ok_ip.append(proxy_host)
-            else:
-                print(proxy_host + "  is BOOM")
-        except:  # 超时或异常
-            print(proxy_host + "  is BOOM")
-            continue
+    try:
+        proxy_temp = {"http": ip, "https": ip}
+        res = requests.get(site, headers=headers, proxies=proxy_temp, timeout=10)  # 验证超时时间，默认10秒
+        if code == "2":
+            res.encoding = 'gbk'
+        else:
+            res.encoding = 'utf-8'
+        if word in res.text:  # 判断关键词是否在网站源码中
+            print(res, ip + "  is OK")
+            proxy_ok_ip.append(ip)
+        else:
+            print(ip + "  is BOOM")
+    except:  # 超时或异常
+        print(ip + "  is BOOM")
 
 
 # 列表写入TXT文件函数：filename为写入TXT文件的路径，data为要写入数据列表
@@ -200,7 +197,7 @@ def text_save(filename, data):
 
 
 # 列表去重函数
-def ip_list(lists):
+def check_list(lists):
     temp = []
     for i in lists:
         if not i in temp:
@@ -209,37 +206,46 @@ def ip_list(lists):
 
 
 if __name__ == '__main__':
-    choose = input("请选择你要获取的代理IP类型(1.普通(默认) 2.高匿)：")
-    if choose == '2':
-        print("正在获取高匿代理IP中请稍等片刻，大概3分钟...(≡•̀·̯•́≡)认真脸")
+    print("注意：此脚本为提取代理IP脚本，可以获取大量免费代理IP！\n")
+    input_ip_type = input("请选择你要获取的代理IP类型(1.普通(默认) 2.高匿)：")
+    if input_ip_type == '2':
+        print("\n正在获取[高匿]代理IP中请稍等片刻，大概3min... _(:з」∠)_")
         get_anonymous_ip()
-        ip_list = ip_list(proxy_ip)  # 去重
+        ip_list = check_list(proxy_ip)  # 去重
     else:
-        print("正在获取普通代理IP中请稍等片刻，大概3分钟...(≡•̀·̯•́≡)认真脸")
+        print("\n正在获取[普通]代理IP中请稍等片刻，大概3min... _(:з」∠)_")
         get_ip()
-        ip_list = ip_list(proxy_ip)  # 去重
+        ip_list = check_list(proxy_ip)  # 去重
 
     # 是否验证可用性？
-    value = input("\n去重后共获取到" + str(len(ip_list)) + "个代理IP，是否验证可用性（默认否，输入任意字符开始验证）：")
+    input_check = input("\n去重后共获取到" + str(len(ip_list)) + "个代理IP，是否验证可用性（默认否，输入任意字符开始验证）：")
+    if input_check:
+        input_thread_num = input("请输入验证的线程数（默认500）：")
+    else:
+        input_thread_num = 500
 
-    if value:  # 验证可用性✔
+    if input_check:  # 验证可用性✔
         while True:  # 首次验证检测输入是否正确，不使用代理IP
-            site = input("请输入要访问的站点：")
-            code = input("请输入验证站点的编码格式(1.UTF-8(默认) 2.GBK)：")
-            word = input("请输入验证站点内的关键字符串，如 “https://www.baidu.com” 中有关键字符串 “百度一下” ：")
-            if check_input(site, word, code):
+            input_site = input("请输入要访问的站点：")
+            input_code = input("请输入验证站点的编码格式(1.UTF-8(默认) 2.GBK)：")
+            input_word = input("请输入验证站点内的关键字符串，如 “https://www.baidu.com” 中有关键字符串 “百度一下” ：")
+            if check_input(input_site, input_word, input_code):
                 break
             else:
                 print('\n\n')
 
         # 多线程验证开始，GO! GO! GO!
-        thread_num = 500  # 默认500线程
-        thread_count = len(ip_list) // thread_num  # 一个线程验证IP数
+        k = 0
         threads = []  # 定义一个线程池
-        for i in range(thread_num):
-            i *= thread_count
-            # 创建新线程,添加到线程池
-            threads.append(MyThread(test_ip, args=(ip_list[i+1:i+thread_count], site, word, code)))
+        thread_count = len(ip_list) // int(input_thread_num) + 1  # 分几段线程
+        for i in range(thread_count):
+            for j in range(int(input_thread_num)):  # 一段几线程
+                try:
+                    # 创建新线程,添加到线程池
+                    threads.append(MyThread(check_ip, args=(ip_list[k], input_site, input_word, input_code)))
+                    k += 1
+                except:
+                    break
         # 开启所有线程
         for t in threads:
             t.start()
@@ -252,4 +258,4 @@ if __name__ == '__main__':
     else:  # 不验证可用性×
         # print(ip_list)
         text_save("未验证的IP列表.txt", ip_list)
-    input()
+    input("按任意键即可退出！")
